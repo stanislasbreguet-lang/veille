@@ -1,0 +1,9 @@
+{
+  "name": "veille-video",
+  "version": "1.0.0",
+  "description": "Colle un lien de reel, short ou vidéo tech : Claude le transcrit en local, vérifie les outils cités à la source et dit s'il faut les installer, les adapter ou les ignorer.",
+  "author": { "name": "veille-video contributors" },
+  "repository": "https://github.com/stanislasbreguet-lang/veille-video",
+  "license": "MIT",
+  "keywords": ["veille", "video", "transcription", "whisper", "security-review", "skills"]
+}
