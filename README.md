@@ -2,7 +2,7 @@
 
 Un skill [Claude Code](https://docs.anthropic.com/en/docs/claude-code) pour trier la veille tech qui arrive en reels, shorts et vidéos.
 
-Tu colles un ou plusieurs liens (Instagram, TikTok, YouTube, X…) dans Claude Code. Pour chaque outil cité dans la vidéo, il répond **Installer**, **Adapter**, **Inspiration** ou **Ignorer**, avec la raison, après avoir vérifié à la source.
+Tu colles un ou plusieurs liens (Instagram, TikTok, YouTube, X…) dans Claude Code. Pour chaque outil cité dans la vidéo, il répond **Installer**, **Adapter**, **Side quest**, **Inspiration** ou **Ignorer**, avec la raison, après avoir vérifié à la source.
 
 ## Pourquoi
 
@@ -63,7 +63,7 @@ Sous Linux, installe les mêmes outils avec ton gestionnaire de paquets et place
 
 ```
 skills/veille-video/SKILL.md          étapes, critères de vérification, format du verdict
-skills/veille-video/scripts/fetch.sh  téléchargement, transcription, extraction d'images
+skills/veille-video/scripts/fetch.sh  téléchargement, transcription, extraction d'images (vidéos et carrousels)
 setup.sh                              installation des outils et du modèle Whisper
 ```
 
