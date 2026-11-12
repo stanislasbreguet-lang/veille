@@ -30,9 +30,9 @@ MAX_ITEMS=20        # images gardées par carrousel
 MAX_AUDIO_ITEMS=10  # éléments vidéo transcrits par carrousel
 
 for bin in yt-dlp ffmpeg ffprobe whisper-cli jq; do
-  command -v "$bin" >/dev/null || { echo "manquant : $bin (lancer setup.sh du plugin veille-video)" >&2; exit 3; }
+  command -v "$bin" >/dev/null || { echo "manquant : $bin (lancer setup.sh du plugin veille)" >&2; exit 3; }
 done
-[ -f "$MODEL" ] || { echo "modèle Whisper absent : $MODEL (lancer setup.sh du plugin veille-video)" >&2; exit 3; }
+[ -f "$MODEL" ] || { echo "modèle Whisper absent : $MODEL (lancer setup.sh du plugin veille)" >&2; exit 3; }
 
 mkdir -p "$OUT" || exit 4
 OUT="$(cd "$OUT" && pwd)"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Prérequis du skill veille-video (macOS + Homebrew). Lisible en 30 secondes, à lire avant de lancer.
+# Prérequis du skill veille (macOS + Homebrew). Lisible en 30 secondes, à lire avant de lancer.
 # 1. installe yt-dlp, ffmpeg, whisper-cpp, jq et gh via Homebrew (ignorés s'ils sont déjà là) ;
 # 2. télécharge le modèle Whisper « small » (465 Mo, bon en français) depuis le dépôt officiel
 #    de whisper.cpp et vérifie son empreinte SHA-256 avant de le garder.

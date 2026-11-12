@@ -1,12 +1,14 @@
 {
-  "name": "veille-video",
-  "description": "Skill Claude Code pour trier la veille tech vue en vidéo.",
-  "owner": { "name": "veille-video contributors" },
+  "name": "veille",
+  "description": "Skill Claude Code pour trier la veille vue sur les réseaux.",
+  "owner": {
+    "name": "veille contributors"
+  },
   "plugins": [
     {
-      "name": "veille-video",
+      "name": "veille",
       "source": "./",
-      "description": "Analyse des vidéos de veille tech et verdict d'installation par outil cité."
+      "description": "Analyse des posts de veille (vidéos, carrousels) et verdict par outil ou idée cité, pro comme perso."
     }
   ]
 }

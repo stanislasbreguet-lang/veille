@@ -1,9 +1,19 @@
 {
-  "name": "veille-video",
-  "version": "1.0.0",
-  "description": "Colle un lien de reel, short ou vidéo tech : Claude le transcrit en local, vérifie les outils cités à la source et dit s'il faut les installer, les adapter ou les ignorer.",
-  "author": { "name": "veille-video contributors" },
-  "repository": "https://github.com/stanislasbreguet-lang/veille-video",
+  "name": "veille",
+  "version": "1.1.0",
+  "description": "Colle un lien de reel, short, vidéo ou carrousel : Claude le transcrit en local, vérifie à la source les outils et projets cités et dit s'il faut les installer, les adapter, les tenter en side quest ou les ignorer.",
+  "author": {
+    "name": "veille contributors"
+  },
+  "repository": "https://github.com/stanislasbreguet-lang/veille",
   "license": "MIT",
-  "keywords": ["veille", "video", "transcription", "whisper", "security-review", "skills"]
+  "keywords": [
+    "veille",
+    "video",
+    "carousel",
+    "transcription",
+    "whisper",
+    "security-review",
+    "skills"
+  ]
 }

@@ -1,8 +1,8 @@
-# veille-video
+# veille
 
-Un skill [Claude Code](https://docs.anthropic.com/en/docs/claude-code) pour trier la veille tech qui arrive en reels, shorts et vidéos.
+Un skill [Claude Code](https://docs.anthropic.com/en/docs/claude-code) pour trier la veille qui arrive en reels, shorts, vidéos et carrousels : outils pour le travail, idées à tenter pour le plaisir.
 
-Tu colles un ou plusieurs liens (Instagram, TikTok, YouTube, X…) dans Claude Code. Pour chaque outil cité dans la vidéo, il répond **Installer**, **Adapter**, **Side quest**, **Inspiration** ou **Ignorer**, avec la raison, après avoir vérifié à la source.
+Tu colles un ou plusieurs liens (Instagram, TikTok, YouTube, X…) dans Claude Code. Pour chaque outil ou projet cité dans le post, il répond **Installer**, **Adapter**, **Side quest**, **Inspiration** ou **Ignorer**, avec la raison, après avoir vérifié à la source.
 
 ## Pourquoi
 
@@ -33,12 +33,12 @@ Prérequis : macOS avec [Homebrew](https://brew.sh), et Claude Code.
 
 1. Dans Claude Code :
    ```
-   /plugin marketplace add stanislasbreguet-lang/veille-video
-   /plugin install veille-video@veille-video
+   /plugin marketplace add stanislasbreguet-lang/veille
+   /plugin install veille@veille
    ```
 2. Installe les outils. Lis d'abord [`setup.sh`](setup.sh), il est court :
    ```bash
-   bash ~/.claude/plugins/marketplaces/veille-video/setup.sh
+   bash ~/.claude/plugins/marketplaces/veille/setup.sh
    ```
    Il installe `yt-dlp`, `ffmpeg`, `whisper-cpp`, `jq` et `gh` via Homebrew, puis télécharge le modèle Whisper « small » (465 Mo) depuis le dépôt officiel de whisper.cpp, en vérifiant son empreinte SHA-256.
 3. Connecte `gh` si ce n'est pas déjà fait (`gh auth login`) : Claude s'en sert, en lecture seule, pour inspecter les repos cités.
@@ -62,8 +62,8 @@ Sous Linux, installe les mêmes outils avec ton gestionnaire de paquets et place
 ## Contenu
 
 ```
-skills/veille-video/SKILL.md          étapes, critères de vérification, format du verdict
-skills/veille-video/scripts/fetch.sh  téléchargement, transcription, extraction d'images (vidéos et carrousels)
+skills/veille/SKILL.md          étapes, critères de vérification, format du verdict
+skills/veille/scripts/fetch.sh  téléchargement, transcription, extraction d'images (vidéos et carrousels)
 setup.sh                              installation des outils et du modèle Whisper
 ```
 
