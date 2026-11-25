@@ -2,7 +2,9 @@
 
 Un skill [Claude Code](https://docs.anthropic.com/en/docs/claude-code) pour trier la veille qui arrive en reels, shorts, vidéos et carrousels : outils pour le travail, idées à tenter pour le plaisir.
 
-Tu colles un ou plusieurs liens (Instagram, TikTok, YouTube, X…) dans Claude Code. Pour chaque outil ou projet cité dans le post, il répond **Installer**, **Adapter**, **Side quest**, **Inspiration** ou **Ignorer**, avec la raison, après avoir vérifié à la source.
+Tu colles un ou plusieurs liens (Instagram, TikTok, YouTube, X…) dans Claude Code. Pour chaque outil ou projet cité dans le post, il répond **Fusionner dans X**, **Remplacer X**, **Installer**, **Adapter**, **Side quest**, **Inspiration** ou **Ignorer**, avec la raison, après avoir vérifié à la source. Il préfère enrichir ou remplacer un skill déjà en place plutôt qu'en ajouter un.
+
+Il fait aussi l'**inventaire** des skills installés : doublons, skills jamais utilisés, plugins trop larges, d'après l'usage réel lu dans tes sessions passées.
 
 ## Pourquoi
 
@@ -59,11 +61,16 @@ Sous Linux, installe les mêmes outils avec ton gestionnaire de paquets et place
 - Une vidéo d'environ une minute se traite en une dizaine de secondes sur un Mac M-series. Plusieurs liens passent l'un après l'autre.
 - Le verdict reste un avis argumenté : relis-le avant d'installer quoi que ce soit.
 
+## Inventaire régulier
+
+Demande « fais l'inventaire des skills » à Claude. Pour un rappel une semaine sur deux, planifie `scripts/inventory.sh` chaque semaine (launchd ou cron) : il ne travaille que les semaines paires, écrit le rapport d'usage dans `~/.claude/veille/inventaire/` et affiche une fenêtre macOS (`NODIALOG=1` pour s'en passer).
+
 ## Contenu
 
 ```
 skills/veille/SKILL.md          étapes, critères de vérification, format du verdict
 skills/veille/scripts/fetch.sh  téléchargement, transcription, extraction d'images (vidéos et carrousels)
+skills/veille/scripts/inventory.sh  rapport d'usage des skills installés, pour l'inventaire
 setup.sh                              installation des outils et du modèle Whisper
 ```
 

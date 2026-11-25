@@ -1,6 +1,6 @@
 ---
 name: veille
-description: Trie la veille vue sur les réseaux (vidéos, carrousels, images ; Instagram, TikTok, YouTube, X…) et rend un verdict par outil ou idée cité, pour le travail comme pour le perso (installer, adapter, side quest, inspiration, ignorer). Use when the user pastes one or more post links, or asks whether a tool or project seen in a reel, short or carousel is worth installing or trying.
+description: Trie la veille vue sur les réseaux (vidéos, carrousels, images ; Instagram, TikTok, YouTube, X…) et rend un verdict par outil ou idée cité, pour le travail comme pour le perso (fusionner, remplacer, installer, adapter, side quest, inspiration, ignorer), et fait l’inventaire des skills installés pour éviter qu’ils s’accumulent. Use when the user pastes one or more post links, or asks whether a tool or project seen in a reel, short or carousel is worth installing or trying, or asks for the skills inventory (« inventaire des skills »).
 ---
 
 # Veille
@@ -45,8 +45,12 @@ Juge chaque outil sur deux plans : le **travail** (la stack et les projets en co
 
 ## 6. Verdict
 
-Un verdict par outil ou idée, parmi cinq :
+Le setup ne doit pas grossir à l'infini. Avant tout ajout, cherche dans cet ordre : Claude Code le fait déjà nativement (→ Inspiration) ; l'idée enrichit un skill existant (→ Fusionner) ; elle fait mieux qu'un skill existant (→ Remplacer) ; seulement sinon, un nouveau skill (→ Installer ou Adapter, en disant pourquoi aucun skill en place ne peut l'accueillir).
 
+Un verdict par outil ou idée, parmi sept :
+
+- **Fusionner dans X** : la bonne idée tient en quelques consignes à ajouter au skill X déjà en place (dis lesquelles). Rien de nouveau ne s'installe.
+- **Remplacer X** : fait mieux que le skill ou plugin X, qui part le jour où le nouveau arrive (dis ce que X faisait et que le nouveau devra garder).
 - **Installer** : utile, sain, sans doublon. Rare.
 - **Adapter** : utile, mais à copier en local, épinglé et corrigé (dis exactement quoi changer).
 - **Side quest** : hors du travail, mais tentant à essayer ou à refaire pour le plaisir ou l'expérience. Dis ce qu'on construirait, avec quels outils déjà en place, et l'effort estimé (une soirée, un week-end…).
@@ -61,3 +65,16 @@ Ajoute une ligne par outil jugé dans `~/.claude/veille/journal.md` :
 `AAAA-MM-JJ | <url du post> | <outil> (<repo>) | <verdict> | <raison en une ligne>`
 
 N'installe rien sans un oui explicite. Sur un oui : fige un commit, relis chaque fichier en entier, copie à la main dans `~/.claude/skills` ou `~/.claude/agents`, applique les adaptations, ajoute `source: <repo>@<sha>` dans les métadonnées, puis consigne l'import en mémoire (quoi, d'où, quelles adaptations) pour qu'une future mise à jour reparte du même commit.
+
+## Inventaire
+
+Quand l'utilisateur demande l'inventaire des skills, pars du dernier rapport de `~/.claude/veille/inventaire/` ; s'il manque ou date de plus d'un jour, génère-le avec `FORCE=1 NODIALOG=1 bash <dossier de ce skill>/scripts/inventory.sh`. Le rapport donne les plugins actifs, l'usage réel (appels du tool Skill sur 14 et 60 jours) et la liste des skills installés.
+
+Pour chaque skill ou plugin, une décision parmi : **garder**, **fusionner dans X**, **remplacer par X**, **désactiver** (plugin) ou **retirer** (skill perso). Cherche :
+
+- les **doublons** : deux skills qui se disputent le même déclencheur ; garde celui que le `CLAUDE.md` global désigne ou que l'usage montre ;
+- les **dormants** : aucun appel sur 60 jours. Un skill importé depuis moins d'un mois se garde et se revoit à l'inventaire suivant ;
+- les **plugins trop larges** : beaucoup de skills pour un usage limité à quelques projets ; propose de les activer par projet (`enabledPlugins` du `.claude/settings.json` du projet) plutôt que globalement ;
+- les **imports figés** (`source:` dans les métadonnées) dont le repo a bougé : signale-les, sans mettre à jour.
+
+Réponds par un tableau `Skill ou plugin | Usage 60 j | Décision | Raison`, puis la liste des actions. N'en applique aucune sans un oui explicite. Les plugins synchronisés depuis claude.ai (`plugins/synced`) se gèrent dans les réglages de claude.ai : dis à l'utilisateur quoi y désactiver. Consigne la date et les décisions dans `~/.claude/veille/journal.md` (`AAAA-MM-JJ | inventaire | <skill> | <décision> | <raison>`).

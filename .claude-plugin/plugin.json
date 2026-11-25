@@ -1,6 +1,6 @@
 {
   "name": "veille",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Colle un lien de reel, short, vidéo ou carrousel : Claude le transcrit en local, vérifie à la source les outils et projets cités et dit s'il faut les installer, les adapter, les tenter en side quest ou les ignorer.",
   "author": {
     "name": "veille contributors"
