@@ -1,6 +1,6 @@
 ---
 name: veille
-description: Trie la veille vue sur les réseaux (vidéos, carrousels, images ; Instagram, TikTok, YouTube, X…) et rend un verdict par outil ou idée cité, pour le travail comme pour le perso (fusionner, remplacer, installer, adapter, side quest, inspiration, ignorer), et fait l’inventaire des skills installés pour éviter qu’ils s’accumulent. Use when the user pastes one or more post links, or asks whether a tool or project seen in a reel, short or carousel is worth installing or trying, or asks for the skills inventory (« inventaire des skills »).
+description: Trie la veille vue sur les réseaux (vidéos, carrousels, images ; Instagram, TikTok, YouTube, X…) et rend un verdict par outil ou idée cité, pour le travail comme pour le perso (fusionner, remplacer, installer, adapter, side quest, inspiration, ignorer), fait l’inventaire des skills installés pour éviter qu’ils s’accumulent, et le ménage mensuel des mémoires de Claude Code. Use when the user pastes one or more post links, or asks whether a tool or project seen in a reel, short or carousel is worth installing or trying, or asks for the skills inventory (« inventaire des skills ») or a memory cleanup (« ménage de la mémoire »).
 ---
 
 # Veille
@@ -78,3 +78,15 @@ Pour chaque skill ou plugin, une décision parmi : **garder**, **fusionner dans 
 - les **imports figés** (`source:` dans les métadonnées) dont le repo a bougé : signale-les, sans mettre à jour.
 
 Réponds par un tableau `Skill ou plugin | Usage 60 j | Décision | Raison`, puis la liste des actions. N'en applique aucune sans un oui explicite. Les plugins synchronisés depuis claude.ai (`plugins/synced`) se gèrent dans les réglages de claude.ai : dis à l'utilisateur quoi y désactiver. Consigne la date et les décisions dans `~/.claude/veille/journal.md` (`AAAA-MM-JJ | inventaire | <skill> | <décision> | <raison>`).
+
+## Ménage de la mémoire
+
+Une fois par mois, le rapport d'inventaire contient une section « Ménage de la mémoire » (`MEMOIRE=1` force cette section, `MEMOIRE=0` la retire). Elle est aussi à faire quand l'utilisateur demande un ménage de la mémoire. Elle liste pour chaque dossier `~/.claude/projects/*/memory/` : les mémoires absentes de l'index `MEMORY.md`, les entrées d'index sans fichier, les liens `[[…]]` cassés, les chemins cités introuvables et les fichiers non modifiés depuis 60 jours. Les contrôles mécaniques ne suffisent pas : lis aussi chaque mémoire en entier et cherche :
+
+- les **périmées** : événement ou échéance passés, projet livré ou archivé, outil désinstallé ;
+- les **déplacées** : un chemin introuvable dont le dossier existe ailleurs (cherche-le avec `find` avant de proposer la suppression) ;
+- les **doublons et contradictions** : deux mémoires sur le même sujet, ou deux faits incompatibles ; vérifie dans le code ou le repo lequel est vrai ;
+- les **journaux** : une mémoire devenue la liste des changements d'un projet, que git garde déjà ; propose de la réduire aux réglages et aux pièges ;
+- ce qui **appartient au code** : une règle propre à un projet qui irait mieux dans son `CLAUDE.md`.
+
+Réponds par un tableau `Mémoire | Décision | Raison`, avec une décision parmi garder, mettre à jour, fusionner dans X, réduire ou supprimer. Les corrections sans perte d'information (chemin, entrée d'index) peuvent s'appliquer directement ; tout le reste attend un oui explicite. Copie le dossier avant d'y toucher (`memory.bak-AAAA-MM-JJ` à côté) et consigne les décisions dans le journal (`AAAA-MM-JJ | mémoire | <fichier> | <décision> | <raison>`).

@@ -42,6 +42,56 @@ skills() { # nom<TAB>origine, pour chaque SKILL.md actif
   echo '```'; skills | sort -u; echo '```'
 } > "$out"
 
+# Ménage de la mémoire : au plus une fois tous les 28 jours (MEMOIRE=1 pour forcer, MEMOIRE=0 pour s'en passer).
+# Contrôles mécaniques seulement ; le tri se fait dans Claude, section « Ménage de la mémoire » du skill.
+stamp="$out_dir/.menage-memoire"
+memoire=0
+if [[ ${MEMOIRE:-auto} == 1 ]]; then memoire=1
+elif [[ ${MEMOIRE:-auto} == auto ]] && { [[ ! -f $stamp ]] || [[ -n $(find "$stamp" -mtime +27) ]]; }; then memoire=1
+fi
+
+memory_report() { # $1 = dossier memory/ d'un projet
+  local d=$1 f n p
+  echo "### ${d#"$HOME"/.claude/projects/}"
+  echo
+  echo "- Mémoires : $(find "$d" -maxdepth 1 -name '*.md' ! -name MEMORY.md | wc -l | tr -d ' ')"
+  echo "- Absentes de l'index MEMORY.md :"
+  for f in "$d"/*.md; do
+    n=$(basename "$f"); [[ $n == MEMORY.md ]] && continue
+    grep -qF "($n)" "$d/MEMORY.md" 2>/dev/null || echo "  - $n"
+  done
+  echo "- Index vers un fichier absent :"
+  grep -o '([^)]*\.md)' "$d/MEMORY.md" 2>/dev/null | tr -d '()' | while read -r n; do
+    [[ -f $d/$n ]] || echo "  - $n"
+  done
+  echo "- Liens [[…]] sans mémoire correspondante :"
+  grep -oh '\[\[[^]]*\]\]' "$d"/*.md 2>/dev/null | sort -u | tr -d '[]' | while read -r n; do
+    grep -lq "^name: *$n\$" "$d"/*.md || echo "  - $n"
+  done
+  echo "- Chemins cités introuvables :"
+  for f in "$d"/*.md; do
+    grep -o '`~/[^`]*`' "$f" | tr -d '`' | sort -u | while read -r p; do
+      [[ $p == *['<*{ ']* ]] && continue
+      [[ -e ${p/#\~/$HOME} ]] || echo "  - $(basename "$f") : $p"
+    done
+  done
+  echo "- Non modifiées depuis plus de 60 jours :"
+  find "$d" -maxdepth 1 -name '*.md' ! -name MEMORY.md -mtime +60 -exec basename {} \; | sed 's/^/  - /'
+  echo
+}
+
+if (( memoire )); then
+  {
+    echo
+    echo "## Ménage de la mémoire"
+    echo
+    for d in "$HOME"/.claude/projects/*/memory; do
+      [[ -n $(find "$d" -maxdepth 1 -name '*.md' ! -name MEMORY.md 2>/dev/null) ]] && memory_report "$d"
+    done
+  } >> "$out"
+  touch "$stamp"
+fi
+
 [[ ${NODIALOG:-0} == 1 ]] && { echo "$out"; exit 0; }
 r=$(osascript -e 'display dialog "Inventaire des skills prêt. Dans Claude, demande : « fais l’inventaire des skills »." with title "Skills" buttons {"Plus tard", "Voir le rapport"} default button "Voir le rapport" giving up after 3600' 2>/dev/null)
 [[ $r == *"Voir le rapport"* ]] && open "$out"

@@ -63,7 +63,7 @@ Sous Linux, installe les mêmes outils avec ton gestionnaire de paquets et place
 
 ## Inventaire régulier
 
-Demande « fais l'inventaire des skills » à Claude. Pour un rappel une semaine sur deux, planifie `scripts/inventory.sh` chaque semaine (launchd ou cron) : il ne travaille que les semaines paires, écrit le rapport d'usage dans `~/.claude/veille/inventaire/` et affiche une fenêtre macOS (`NODIALOG=1` pour s'en passer).
+Demande « fais l'inventaire des skills » à Claude. Pour un rappel une semaine sur deux, planifie `scripts/inventory.sh` chaque semaine (launchd ou cron) : il ne travaille que les semaines paires, écrit le rapport d'usage dans `~/.claude/veille/inventaire/` et affiche une fenêtre macOS (`NODIALOG=1` pour s'en passer). Une fois par mois, le rapport ajoute un contrôle des mémoires de Claude Code (`~/.claude/projects/*/memory/`) : index, liens et chemins cassés, fichiers anciens ; demande ensuite « fais le ménage de la mémoire » (`MEMOIRE=1` pour forcer ce contrôle, `MEMOIRE=0` pour s'en passer).
 
 ## Contenu
 
